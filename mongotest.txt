@@ -1,0 +1,438 @@
+use restaurant_db;
+switched to db restaurant_db
+db.createCollection("menu");
+{ ok: 1 }
+db.menu.insertMany([
+  {dishName:'abc',category:'abc',price:250,availableQty:12},
+  {dishName:'xyz',category:'xyz',price:230,availableQty:10},
+  {dishName:'pqr',category:'pqr',price:350,availableQty:20},
+  {dishName:'csv',category:'csv',price:450,availableQty:35},
+  {dishName:'vzc',category:'vzc',price:650,availableQty:35},
+  {dishName:'bga',category:'bga',price:250,availableQty:40},
+  {dishName:'qpo',category:'qpo',price:380,availableQty:39}
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6ac5b70292f0d129610427e3'),
+    '1': ObjectId('6ac5b70292f0d129610427e4'),
+    '2': ObjectId('6ac5b70292f0d129610427e5'),
+    '3': ObjectId('6ac5b70292f0d129610427e6'),
+    '4': ObjectId('6ac5b70292f0d129610427e7'),
+    '5': ObjectId('6ac5b70292f0d129610427e8'),
+    '6': ObjectId('6ac5b70292f0d129610427e9')
+  }
+}
+db.menu.find()
+{
+  _id: ObjectId('6ac5b70292f0d129610427e3'),
+  dishName: 'abc',
+  category: 'abc',
+  price: 250,
+  availableQty: 12
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e4'),
+  dishName: 'xyz',
+  category: 'xyz',
+  price: 230,
+  availableQty: 10
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e5'),
+  dishName: 'pqr',
+  category: 'pqr',
+  price: 350,
+  availableQty: 20
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e6'),
+  dishName: 'csv',
+  category: 'csv',
+  price: 450,
+  availableQty: 35
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e7'),
+  dishName: 'vzc',
+  category: 'vzc',
+  price: 650,
+  availableQty: 35
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e8'),
+  dishName: 'bga',
+  category: 'bga',
+  price: 250,
+  availableQty: 40
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e9'),
+  dishName: 'qpo',
+  category: 'qpo',
+  price: 380,
+  availableQty: 39
+}
+db.menu.find({price:{$gt:200,{$lt:620}}})
+SyntaxError: Unexpected token (1:29)
+
+> 1 | db.menu.find({price:{$gt:200,{$lt:620}}})
+    |                              ^
+db.menu.find({price:{$gt:200,$lt:620}})
+{
+  _id: ObjectId('6ac5b70292f0d129610427e3'),
+  dishName: 'abc',
+  category: 'abc',
+  price: 250,
+  availableQty: 12
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e4'),
+  dishName: 'xyz',
+  category: 'xyz',
+  price: 230,
+  availableQty: 10
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e5'),
+  dishName: 'pqr',
+  category: 'pqr',
+  price: 350,
+  availableQty: 20
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e6'),
+  dishName: 'csv',
+  category: 'csv',
+  price: 450,
+  availableQty: 35
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e8'),
+  dishName: 'bga',
+  category: 'bga',
+  price: 250,
+  availableQty: 40
+}
+{
+  _id: ObjectId('6ac5b70292f0d129610427e9'),
+  dishName: 'qpo',
+  category: 'qpo',
+  price: 380,
+  availableQty: 39
+}
+db.menu.find({category:'abc'})
+{
+  _id: ObjectId('6ac5b70292f0d129610427e3'),
+  dishName: 'abc',
+  category: 'abc',
+  price: 250,
+  availableQty: 12
+}
+db.menu.updateOne({dishName:'abc',{$set:{price:290}}})
+SyntaxError: Unexpected token (1:34)
+
+> 1 | db.menu.updateOne({dishName:'abc',{$set:{price:290}}})
+    |                                   ^
+db.menu.updateOne({dishName:'abc'},{$set:{price:170}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+db.menu.updateMany({availableQty:{$gt:20,$l:50}},{$inc:{availableQty:1}})
+MongoServerError: unknown operator: $l
+db.menu.updateMany({availableQty:{$gt:20,$lt:50}},{$inc:{availableQty:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 4,
+  modifiedCount: 4,
+  upsertedCount: 0
+}
+db.menu.deleteOne({dishName:'pqr'})
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+db.menu.deleteMany({availableQty:{$gt:10,$lt:45}})
+{
+  acknowledged: true,
+  deletedCount: 5
+}
+use gym_db;
+switched to db gym_db
+db.createCollection("members");
+{ ok: 1 }
+db.members.insertMany([
+  {name:'tom',age:19,membershipPlan:1,trainerAssigned:'gorge',city:'mumbai'},
+  {name:'jerry',age:21,membershipPlan:2,trainerAssigned:'bolt',city:'pune'},
+  {name:'henry',age:29,membershipPlan:4,trainerAssigned:'gorge',city:'delhi'},
+  {name:'bob',age:31,membershipPlan:1,trainerAssigned:'conel',city:'navi mumbai'},
+  {name:'jolly',age:37,membershipPlan:5,trainerAssigned:'joll',city:'lucknow'},
+  {name:'bunny',age:41,membershipPlan:6,trainerAssigned:'conel',city:'mumbai'},
+  {name:'aditya',age:45,membershipPlan:2,trainerAssigned:'bolt',city:'mumbai'}
+])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('6ac5bb3c92f0d129610427ea'),
+    '1': ObjectId('6ac5bb3c92f0d129610427eb'),
+    '2': ObjectId('6ac5bb3c92f0d129610427ec'),
+    '3': ObjectId('6ac5bb3c92f0d129610427ed'),
+    '4': ObjectId('6ac5bb3c92f0d129610427ee'),
+    '5': ObjectId('6ac5bb3c92f0d129610427ef'),
+    '6': ObjectId('6ac5bb3c92f0d129610427f0')
+  }
+}
+db.members.find()
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ea'),
+  name: 'tom',
+  age: 19,
+  membershipPlan: 1,
+  trainerAssigned: 'gorge',
+  city: 'mumbai'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427eb'),
+  name: 'jerry',
+  age: 21,
+  membershipPlan: 2,
+  trainerAssigned: 'bolt',
+  city: 'pune'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ec'),
+  name: 'henry',
+  age: 29,
+  membershipPlan: 4,
+  trainerAssigned: 'gorge',
+  city: 'delhi'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ed'),
+  name: 'bob',
+  age: 31,
+  membershipPlan: 1,
+  trainerAssigned: 'conel',
+  city: 'navi mumbai'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ee'),
+  name: 'jolly',
+  age: 37,
+  membershipPlan: 5,
+  trainerAssigned: 'joll',
+  city: 'lucknow'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ef'),
+  name: 'bunny',
+  age: 41,
+  membershipPlan: 6,
+  trainerAssigned: 'conel',
+  city: 'mumbai'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427f0'),
+  name: 'aditya',
+  age: 45,
+  membershipPlan: 2,
+  trainerAssigned: 'bolt',
+  city: 'mumbai'
+}
+db.members.find({age:{$gt:20,$lt:40}})
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427eb'),
+  name: 'jerry',
+  age: 21,
+  membershipPlan: 2,
+  trainerAssigned: 'bolt',
+  city: 'pune'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ec'),
+  name: 'henry',
+  age: 29,
+  membershipPlan: 4,
+  trainerAssigned: 'gorge',
+  city: 'delhi'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ed'),
+  name: 'bob',
+  age: 31,
+  membershipPlan: 1,
+  trainerAssigned: 'conel',
+  city: 'navi mumbai'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ee'),
+  name: 'jolly',
+  age: 37,
+  membershipPlan: 5,
+  trainerAssigned: 'joll',
+  city: 'lucknow'
+}
+db.members.find({membershipPlan:{$gt:2,$lt:1}})
+db.members.find({membershipPlan:{$gt:1,$lt:2}})
+db.members.find({membershipPlan:{$gt:2}})
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ec'),
+  name: 'henry',
+  age: 29,
+  membershipPlan: 4,
+  trainerAssigned: 'gorge',
+  city: 'delhi'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ee'),
+  name: 'jolly',
+  age: 37,
+  membershipPlan: 5,
+  trainerAssigned: 'joll',
+  city: 'lucknow'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ef'),
+  name: 'bunny',
+  age: 41,
+  membershipPlan: 6,
+  trainerAssigned: 'conel',
+  city: 'mumbai'
+}
+db.members.updateOne({name:'jerry'},{$set:{trainerAssigned:'bolt'}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+db.members.updateMany({age:{$gt:38}},{$inc:{age:1}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 2,
+  modifiedCount: 2,
+  upsertedCount: 0
+}
+db.members.deleteMany({city:'mumbai'})
+{
+  acknowledged: true,
+  deletedCount: 3
+}
+db.members.findOne({membershipPlan:1})
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ed'),
+  name: 'bob',
+  age: 31,
+  membershipPlan: 1,
+  trainerAssigned: 'conel',
+  city: 'navi mumbai'
+}
+db.members.find({age:{$gt:40}})
+db.members.find({age:{$gt:20})
+SyntaxError: Unexpected token, expected "," (1:29)
+
+> 1 | db.members.find({age:{$gt:20})
+    |                              ^
+db.members.find({age:{$gt:20}})
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427eb'),
+  name: 'jerry',
+  age: 21,
+  membershipPlan: 2,
+  trainerAssigned: 'bolt',
+  city: 'pune'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ec'),
+  name: 'henry',
+  age: 29,
+  membershipPlan: 4,
+  trainerAssigned: 'gorge',
+  city: 'delhi'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ed'),
+  name: 'bob',
+  age: 31,
+  membershipPlan: 1,
+  trainerAssigned: 'conel',
+  city: 'navi mumbai'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ee'),
+  name: 'jolly',
+  age: 37,
+  membershipPlan: 5,
+  trainerAssigned: 'joll',
+  city: 'lucknow'
+}
+db.members.find().sort({age:1})
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427eb'),
+  name: 'jerry',
+  age: 21,
+  membershipPlan: 2,
+  trainerAssigned: 'bolt',
+  city: 'pune'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ec'),
+  name: 'henry',
+  age: 29,
+  membershipPlan: 4,
+  trainerAssigned: 'gorge',
+  city: 'delhi'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ed'),
+  name: 'bob',
+  age: 31,
+  membershipPlan: 1,
+  trainerAssigned: 'conel',
+  city: 'navi mumbai'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ee'),
+  name: 'jolly',
+  age: 37,
+  membershipPlan: 5,
+  trainerAssigned: 'joll',
+  city: 'lucknow'
+}
+db.members.find({age:{$lt:19}})
+db.members.find({age:{$lt:30}})
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427eb'),
+  name: 'jerry',
+  age: 21,
+  membershipPlan: 2,
+  trainerAssigned: 'bolt',
+  city: 'pune'
+}
+{
+  _id: ObjectId('6ac5bb3c92f0d129610427ec'),
+  name: 'henry',
+  age: 29,
+  membershipPlan: 4,
+  trainerAssigned: 'gorge',
+  city: 'delhi'
+}
+db.members.find([
+  $and:{name:'jerry',trainerAssigned:'bolt'}
+])
+SyntaxError: Unexpected token, expected "," (2:6)
+
+  1 | db.members.find([
+> 2 |   $and:{name:'jerry',trainerAssigned:'bolt'}
+    |       ^
+  3 | ])
+gym_db
+
+
